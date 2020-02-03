@@ -6,6 +6,9 @@ sources := $(wildcard *.py) $(wildcard pathfinders/*.py)
 run: main.py
 	@python $^
 
+help: main.py
+	@python $^ --help
+
 # Typecheck files
 type-check: $(sources)
 	mypy $(mypy_opts) $^
