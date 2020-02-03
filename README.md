@@ -34,3 +34,4 @@ optional arguments:
 - `T` - Switch between thick and slim brush
 - `LMB` - Draw
 - `RMB` - Erase
+- Hold any mouse button while a algorithm is running, to stop rendering

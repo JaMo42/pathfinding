@@ -15,7 +15,6 @@ if __name__ == "__main__":
 
   display = Display(grid, (Args.get("scale"), Args.get("scale")))
   quit_flag = False
-  clock = pygame.time.Clock()
 
   start = (0, 0)
   end = (Args.get("width") - 1, Args.get("height") - 1)
@@ -28,10 +27,13 @@ if __name__ == "__main__":
 
   display.update()
   while(not quit_flag):
+    # Handle input
     for e in pygame.event.get():
+      # Quit
       if e.type == pygame.QUIT:
         quit_flag = True
         break
+      # Key up
       elif e.type == pygame.KEYUP:
         if e.key == pygame.K_s:
           start = display.get_coord(*pygame.mouse.get_pos())
@@ -48,11 +50,13 @@ if __name__ == "__main__":
         elif e.key == pygame.K_c:
           grid.fill(0)
           display.update()
+      # Mouse
       elif e.type == pygame.MOUSEBUTTONDOWN:
         painting = True
         painting_what = 1 if e.button == 1 else 0
       elif e.type == pygame.MOUSEBUTTONUP:
         painting = False
+    # Paint walls
     if painting:
       pos = display.get_coord(*pygame.mouse.get_pos())
       grid[pos].value = painting_what

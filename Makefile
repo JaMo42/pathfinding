@@ -17,3 +17,8 @@ type-check: $(sources)
 style-check: $(sources)
 	pycodestyle $(pycodestyle_opts) $^
 	@echo Success
+
+# List available algorithms
+list:
+	@echo Implemented algorithms:
+	@python -c "from pathfinders import algorithms; print(*algorithms.keys(), sep='\n')"

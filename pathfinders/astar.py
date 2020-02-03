@@ -27,12 +27,11 @@ class AStar(Pathfinder):
 
   def get_path(self, start: Tuple[int, int], end: Tuple[int, int]
                ) -> Iterator[Tuple[int, int]]:
-    # Discovered nodes
     open_set = set([start])
     self.grid.fill_meta({
-      "f": INFINITY,  # f-score
-      "g": INFINITY,  # g-score
-      "prev": None    # previous node
+      "f": INFINITY,
+      "g": INFINITY,
+      "prev": None
     })
     self.grid[start].meta = {
       "f": 0,
@@ -61,9 +60,11 @@ class AStar(Pathfinder):
       end = self.grid[end].get("prev")
 
   def fscore(self, n: Tuple[int, int]) -> float:
+    """ Get the f-score of a node """
     return self.grid[n].get('f')
 
   def gscore(self, n: Tuple[int, int]) -> float:
+    """ Get the g-score of a node """
     return self.grid[n].get('g')
 
   def neighbors(self, node: Tuple[int, int]) -> List[Tuple[int, int]]:

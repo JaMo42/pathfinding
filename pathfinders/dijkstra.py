@@ -49,10 +49,12 @@ class Dijkstra(Pathfinder):
       end = self.grid[end].get("prev")
 
   def dist(self, n: Tuple[int, int]) -> float:
+    """ Get the distance value of a node """
     return self.grid[n].get("dist")
 
   def neighbors(self, node: Tuple[int, int], vertices: Set[Tuple[int, int]]
                 ) -> List[Tuple[int, int]]:
+    """ Neighboring nodes of a node """
     n = []
     x, y = node
     for nx, ny in NEIGHBORS:
