@@ -17,12 +17,12 @@ class Args:
     )
     p.add_argument(
       "-w", "--width",
-      help="The width, in number of cell",
+      help="The width, in number of cells",
       type=int, default=80
     )
     p.add_argument(
       "-h", "--height",
-      help="The height, in number of cell",
+      help="The height, in number of cells",
       type=int, default=45
     )
     p.add_argument(
