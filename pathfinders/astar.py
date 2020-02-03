@@ -55,11 +55,11 @@ class AStar(Pathfinder):
       yield current
 
   def reconstruct_path(self, end: Tuple[int, int]) -> None:
-    self.path = [end]
+    self.path = []
     while end:
-      end = self.grid[end].get("prev")
       self.path.insert(0, end)
-    del self.path[0]
+      end = self.grid[end].get("prev")
+    #del self.path[0]
 
   def fscore(self, n: Tuple[int, int]) -> float:
     return self.grid[n].get('f')
@@ -72,9 +72,11 @@ class AStar(Pathfinder):
     n = []
     x, y = node
     for nx, ny in NEIGHBORS:
-      if (x + nx) in range(self.grid.width) and\
-         (y + ny) in range(self.grid.height):
-        n.append((x + nx, y + ny))
+      Nx = x + nx
+      Ny = y + ny
+      if Nx >= 0 and Nx < self.grid.width and\
+         Ny >= 0 and Ny < self.grid.height:
+        n.append((Nx, Ny))
     return [i for i in n if self.grid[i].value == 0]
 
   def cost(self, a: Tuple[int, int], b: Tuple[int, int]) -> float:

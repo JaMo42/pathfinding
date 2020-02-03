@@ -21,6 +21,10 @@ optional arguments:
                         Width and height of the cells, in pixels
 ```
 
+### Requirements
+
+- `pygame` (pip install pygame)
+
 ### Controls
 
 - `S` - Set starting position
