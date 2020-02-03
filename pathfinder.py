@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from grid import Grid
 
 
-class Pathfinder:
+class Pathfinder(ABC):
   grid: Grid
   path: List[Tuple[int, int]]
 
