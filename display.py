@@ -1,6 +1,5 @@
 from typing import *
 import pygame
-from pygame.locals import *
 from grid import *
 from pathfinder import Pathfinder
 
@@ -10,11 +9,13 @@ class Colors:
   wall = (156, 161, 163)
   path = (92, 184, 92)
   visited = (217, 83, 79)
-  start_end = (0, 0, 0)
+  start_end = (8, 9, 10)
 
 
 class Display:
-  framerate: int = 30
+  grid: Grid
+  start: Optional[Tuple[int, int]]
+  end: Optional[Tuple[int, int]]
 
   def __init__(self, grid: Grid, resolution: Tuple[int, int]) -> None:
     """
@@ -28,7 +29,6 @@ class Display:
     )
     self.start = None
     self.end = None
-    self.clock = pygame.time.Clock()
 
   def render(self) -> None:
     self.surface.fill(Colors.empty)
@@ -44,9 +44,9 @@ class Display:
       rect = pygame.Rect(
         x * self.cell_x, y * self.cell_y, self.cell_x, self.cell_y)
       pygame.draw.ellipse(self.surface, Colors.start_end, rect)
-    if self.start:
+    if self.start is not None:
       do_draw(*self.start)
-    if self.end:
+    if self.end is not None:
       do_draw(*self.end)
 
   def draw_cell(self, x: int, y: int, color: Tuple[int, int, int]) -> None:
@@ -73,11 +73,11 @@ class Display:
       self.draw_cell(*v, Colors.visited)
       if update:
         self.update(False)
-      if pygame.event.peek(QUIT):
+      if pygame.event.peek(pygame.QUIT):
         return
-      elif pygame.event.peek(MOUSEBUTTONDOWN):
+      elif pygame.event.peek(pygame.MOUSEBUTTONDOWN):
         update = False
-      elif pygame.event.peek(MOUSEBUTTONUP):
+      elif pygame.event.peek(pygame.MOUSEBUTTONUP):
         update = True
     for p in pathfinder.path:
       self.draw_cell(*p, Colors.path)

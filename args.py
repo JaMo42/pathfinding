@@ -2,11 +2,12 @@ from typing import *
 import argparse
 from pathfinders import algorithms
 
+
 class Args:
   args: Dict[str, Any]
 
   @staticmethod
-  def parse() -> argparse.Namespace:
+  def parse() -> None:
     p = argparse.ArgumentParser(add_help=False)
     p.add_argument("--help", action="help")
     p.add_argument(

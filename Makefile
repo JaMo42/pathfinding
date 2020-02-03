@@ -1,4 +1,4 @@
-mypy_opts :=
+mypy_opts := --ignore-missing-imports --show-error-codes
 pycodestyle_opts := --ignore=E111,E114,E121,E125
 
 sources := $(wildcard *.py) $(wildcard pathfinders/*.py)

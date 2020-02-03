@@ -4,7 +4,6 @@ from grid import Grid
 from pathfinders import *
 from display import Display
 import pygame
-from pygame.locals import *
 from args import Args
 
 
@@ -12,7 +11,7 @@ if __name__ == "__main__":
   Args.parse()
 
   grid = Grid(Args.get("width"), Args.get("height"))
-  pathfinder = algorithms[Args.get("algorithm")](grid)
+  pathfinder: Pathfinder = algorithms[Args.get("algorithm")](grid)
 
   display = Display(grid, (Args.get("scale"), Args.get("scale")))
   quit_flag = False
@@ -23,7 +22,6 @@ if __name__ == "__main__":
   display.start = start
   display.end = end
 
-  changed = set()
   painting = False
   painting_what = 0
   thick_brush = True
@@ -31,29 +29,29 @@ if __name__ == "__main__":
   display.update()
   while(not quit_flag):
     for e in pygame.event.get():
-      if e.type == QUIT:
+      if e.type == pygame.QUIT:
         quit_flag = True
         break
-      elif e.type == KEYUP:
-        if e.key == K_s:
+      elif e.type == pygame.KEYUP:
+        if e.key == pygame.K_s:
           start = display.get_coord(*pygame.mouse.get_pos())
           display.start = start
           display.update()
-        if e.key == K_e:
+        if e.key == pygame.K_e:
           end = display.get_coord(*pygame.mouse.get_pos())
           display.end = end
           display.update()
-        if e.key == K_r:
+        if e.key == pygame.K_r:
           display.show(pathfinder, start, end)
-        elif e.key == K_t:
+        elif e.key == pygame.K_t:
           thick_brush = not thick_brush
-        elif e.key == K_c:
+        elif e.key == pygame.K_c:
           grid.fill(0)
           display.update()
-      elif e.type == MOUSEBUTTONDOWN:
+      elif e.type == pygame.MOUSEBUTTONDOWN:
         painting = True
         painting_what = 1 if e.button == 1 else 0
-      elif e.type == MOUSEBUTTONUP:
+      elif e.type == pygame.MOUSEBUTTONUP:
         painting = False
     if painting:
       pos = display.get_coord(*pygame.mouse.get_pos())
