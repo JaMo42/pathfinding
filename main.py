@@ -7,13 +7,6 @@ import pygame
 from pygame.locals import *
 from args import Args
 
-def get_events(pathfinding: bool = False) -> List[pygame.event.Event]:
-  pathfinding_pred = lambda e: e.type == QUIT or ((e.type == KEYDOWN or e.type == KEYUP) and e.key == K_SPACE)
-  if pathfinding:
-    return [i for i in pygame.event.get() if pathfinding_pred(i)]
-  else:
-    return pygame.event.get()
-
 
 if __name__ == "__main__":
   Args.parse()
@@ -37,7 +30,7 @@ if __name__ == "__main__":
 
   display.update()
   while(not quit_flag):
-    for e in get_events():
+    for e in pygame.event.get():
       if e.type == QUIT:
         quit_flag = True
         break
