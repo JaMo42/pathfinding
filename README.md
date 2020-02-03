@@ -1,5 +1,7 @@
 # pathfinding
 
+Pathfinding algorithm visualization tool.
+
 ## Usage
 
 ### Options
