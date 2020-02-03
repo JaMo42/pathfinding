@@ -23,7 +23,7 @@ optional arguments:
 
 ### Requirements
 
-- `pygame` (pip install pygame)
+- pygame (`pip install pygame`)
 
 ### Controls
 
