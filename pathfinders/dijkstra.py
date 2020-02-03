@@ -4,6 +4,7 @@ from pathfinder import Pathfinder
 from sys import maxsize as INFINITY
 from pathfinders.astar import NEIGHBORS
 
+
 def length(a: Tuple[int, int], b: Tuple[int, int]) -> float:
   if a[0] != b[0] and a[1] != b[1]:
     return Dijkstra.diagonal_cost

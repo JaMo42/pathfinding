@@ -59,7 +59,6 @@ class AStar(Pathfinder):
     while end:
       self.path.insert(0, end)
       end = self.grid[end].get("prev")
-    #del self.path[0]
 
   def fscore(self, n: Tuple[int, int]) -> float:
     return self.grid[n].get('f')

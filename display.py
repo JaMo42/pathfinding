@@ -4,12 +4,14 @@ from pygame.locals import *
 from grid import *
 from pathfinder import Pathfinder
 
+
 class Colors:
   empty = (16, 78, 139)
   wall = (156, 161, 163)
   path = (92, 184, 92)
   visited = (217, 83, 79)
   start_end = (0, 0, 0)
+
 
 class Display:
   framerate: int = 30
@@ -61,7 +63,10 @@ class Display:
   def get_coord(self, x: int, y: int):
     return x // self.cell_x, y // self.cell_y
 
-  def show(self, pathfinder: Pathfinder, start: Tuple[int, int], end: Tuple[int, int]) -> None:
+  def show(self,
+           pathfinder: Pathfinder,
+           start: Tuple[int, int],
+           end: Tuple[int, int]) -> None:
     self.update()
     update = True
     for v in pathfinder.get_path(start, end):
