@@ -77,7 +77,7 @@ if __name__ == "__main__":
     if painting:
       pos = display.get_coord(*pygame.mouse.get_pos())
       grid[pos].value = painting_what
-      display.draw_cell(*pos, Colors.wall)
+      display.draw_cell(*pos, Colors.wall if painting_what == 1 else Colors.empty)
       # Apply thick brush
       if thick_brush and\
           pos[0] >= 1 and pos[0] < (grid.width - 1) and\
@@ -85,4 +85,4 @@ if __name__ == "__main__":
         for i in ((pos[0] + 1, pos[1]), (pos[0] - 1, pos[1]),
                   (pos[0], pos[1] + 1), (pos[0], pos[1] - 1)):
           grid[i].value = painting_what
-          display.draw_cell(*i, Colors.wall)
+          display.draw_cell(*i, Colors.wall if painting_what == 1 else Colors.empty)
