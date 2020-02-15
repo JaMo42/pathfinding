@@ -30,6 +30,11 @@ class Args:
       help="Width and height of the cells, in pixels",
       type=int, default=20
     )
+    p.add_argument(
+        "-f", "--fullscreen", dest="fullscreen",
+        help="Run in fullscreen, width and height arguments are ignored",
+        action="store_true"
+    )
     Args.args = vars(p.parse_args())
 
   @staticmethod

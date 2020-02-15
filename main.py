@@ -10,10 +10,18 @@ from args import Args
 if __name__ == "__main__":
   Args.parse()
 
-  grid = Grid(Args.get("width"), Args.get("height"))
-  pathfinder: Pathfinder = algorithms[Args.get("algorithm")](grid)
+  # Adjust width and height if running in fullscreen
+  if Args.get("fullscreen"):
+    pygame.init()
+    width, height = pygame.display.list_modes()[0]
+    Args.args["width"] = width // Args.get("scale")
+    Args.args["height"] = height // Args.get("scale")
 
-  display = Display(grid, (Args.get("scale"), Args.get("scale")))
+  grid = Grid(Args.get("width"), Args.get("height"))
+
+  pathfinder = algorithms[Args.get("algorithm")](grid)
+
+  display = Display(grid)
   quit_flag = False
 
   start = (0, 0)
@@ -50,6 +58,9 @@ if __name__ == "__main__":
         elif e.key == pygame.K_c:
           grid.fill(0)
           display.update()
+        elif e.key == pygame.K_ESCAPE:
+          quit_flag = True
+          break
       # Mouse
       elif e.type == pygame.MOUSEBUTTONDOWN:
         painting = True
@@ -60,6 +71,7 @@ if __name__ == "__main__":
     if painting:
       pos = display.get_coord(*pygame.mouse.get_pos())
       grid[pos].value = painting_what
+      # Apply thick brush
       if thick_brush and\
           pos[0] >= 1 and pos[0] < (grid.width - 1) and\
           pos[1] >= 1 and pos[1] < (grid.height - 1):
