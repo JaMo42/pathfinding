@@ -19,24 +19,22 @@ if __name__ == "__main__":
     Args.args["height"] = height // Args.get("scale")
 
   grid = Grid(Args.get("width"), Args.get("height"))
-
   pathfinder = algorithms[Args.get("algorithm")](grid)
-
   display = Display(grid)
-  quit_flag = False
 
   start = (0, 0)
   end = (Args.get("width") - 1, Args.get("height") - 1)
+
+  quit_flag = False
+  painting = False
+  painting_what = 0
+  thick_brush = True
+  do_redraw = False
 
   def redraw():
     display.draw_grid()
     display.draw_indicator(*start)
     display.draw_indicator(*end)
-
-  painting = False
-  painting_what = 0
-  thick_brush = True
-  do_redraw = False
 
   redraw()
   while(not quit_flag):
@@ -58,7 +56,9 @@ if __name__ == "__main__":
           display.draw_indicator(*end)
         if e.key == pygame.K_r:
           redraw()
-          display.show(pathfinder, start, end)
+          if not display.show(pathfinder, start, end):
+            quit_flag = True
+            break
           do_redraw = True
         elif e.key == pygame.K_t:
           thick_brush = not thick_brush

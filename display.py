@@ -41,6 +41,7 @@ class Display:
       self.surface = pygame.display.set_mode(
         (grid.width * self.scale, grid.height * self.scale), pygame.DOUBLEBUF
       )
+    pygame.event.set_blocked(None)
     pygame.event.set_allowed([QUIT, KEYUP, MOUSEBUTTONDOWN, MOUSEBUTTONUP])
     self.surface.set_alpha(None)
 
@@ -73,11 +74,34 @@ class Display:
            end: Tuple[int, int]) -> None:
     """ Show a pathfinding algorithm """
     pygame.display.set_caption(str(pathfinder))
+    timer = pygame.time.Clock()
+    tickrate = 60
+
+    # Reduce allowed events to speed things up
+    pygame.event.set_blocked(None)
+    pygame.event.set_allowed([QUIT, MOUSEBUTTONDOWN])
+
+    # Run algorithm
     for v in pathfinder.get_path(start, end):
       self.draw_cell(*v, Colors.visited)
-      if pygame.event.peek(QUIT):
-        return
+      # Handle events
+      for e in pygame.event.get():
+        # Quit
+        if e.type == QUIT:
+          return False
+        # Adjust speed
+        elif e.type == MOUSEBUTTONDOWN:
+          if e.button == 4:
+            tickrate *= 1.5
+          elif e.button == 5:
+            tickrate *= 0.5
+      timer.tick(int(tickrate))
     for p in pathfinder.path:
       self.draw_cell(*p, Colors.path)
     self.draw_indicator(*start)
     self.draw_indicator(*end)
+
+    # Allow all events again
+    pygame.event.set_blocked(None)
+    pygame.event.set_allowed([QUIT, KEYUP, MOUSEBUTTONDOWN, MOUSEBUTTONUP])
+    return True
