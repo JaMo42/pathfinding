@@ -49,12 +49,15 @@ if __name__ == "__main__":
       # Key up
       elif e.type == pygame.KEYUP:
         if e.key == pygame.K_s:
+          display.draw_cell(*start, Colors.empty)
           start = display.get_coord(*pygame.mouse.get_pos())
           display.draw_indicator(*start)
         if e.key == pygame.K_e:
+          display.draw_cell(*end, Colors.empty)
           end = display.get_coord(*pygame.mouse.get_pos())
           display.draw_indicator(*end)
         if e.key == pygame.K_r:
+          redraw()
           display.show(pathfinder, start, end)
           do_redraw = True
         elif e.key == pygame.K_t:
