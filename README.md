@@ -36,4 +36,3 @@ optional arguments:
 - `LMB` - Draw
 - `RMB` - Erase
 - `ESC` - Quit
-- Hold any mouse button while a algorithm is running, to stop rendering
