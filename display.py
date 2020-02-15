@@ -95,6 +95,8 @@ class Display:
             tickrate *= 1.5
           elif e.button == 5:
             tickrate *= 0.5
+            if tickrate < 1:
+              tickrate = 1
       timer.tick(int(tickrate))
     for p in pathfinder.path:
       self.draw_cell(*p, Colors.path)
